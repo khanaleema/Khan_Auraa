@@ -2,7 +2,7 @@
 import { resetCart } from "@/redux/shoppersSlice";
 import { StoreState } from "@/types";
 import { useSession } from "next-auth/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "./Loader";
 import Link from "next/link";
@@ -14,53 +14,57 @@ import {
 } from "react-icons/hi";
 
 const SuccessContainer = ({ id }: { id: string }) => {
-  const { cart } = useSelector((state: StoreState) => state?.shoppers);
+  const { cart } = useSelector((state: StoreState) => state?.khanaura);
   const dispatch = useDispatch();
   const { data: session } = useSession();
   const [totalAmt, setTotalAmt] = useState(0);
   const [loading, setLoading] = useState(false);
+
+  // Calculate total amount when cart changes
   useEffect(() => {
-    let price = 0;
-    cart.map((item) => {
-      price += item?.price * item?.quantity;
-      return price;
-    });
+    const price = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
     setTotalAmt(price);
   }, [cart]);
 
-  const handleSaveOrder = async () => {
+  // Function to save order (useCallback to prevent re-creation)
+  const handleSaveOrder = useCallback(async () => {
     setLoading(true);
-    const response = await fetch("/api/saveorder", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        cart,
-        email: session?.user?.email as string,
-        id: id,
-        totalAmt,
-      }),
-    });
+    try {
+      const response = await fetch("/api/saveorder", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cart,
+          email: session?.user?.email as string,
+          id: id,
+          totalAmt,
+        }),
+      });
 
-    const data = await response.json();
-    if (data?.success) {
+      const data = await response.json();
+      if (data?.success) {
+        dispatch(resetCart());
+      }
+    } catch (error) {
+      console.error("Error saving order:", error);
+    } finally {
       setLoading(false);
-      dispatch(resetCart());
     }
-  };
+  }, [cart, session?.user?.email, id, totalAmt, dispatch]);
 
+  // Call handleSaveOrder when session and cart are available
   useEffect(() => {
     if (session?.user && cart.length) {
       handleSaveOrder();
     }
-  }, [session?.user, cart?.length]);
+  }, [session?.user, cart.length, handleSaveOrder]);
+
   return (
     <div>
       {loading ? (
-        <Loader
-          title={`Payment is processing... Please do not press back button`}
-        />
+        <Loader title="Payment is processing... Please do not press back button" />
       ) : (
         <div className="bg-gradient-to-b from-green-50 to-white flex items-center justify-center px-4 py-28">
           <div className="max-w-md w-full space-y-8 text-center">

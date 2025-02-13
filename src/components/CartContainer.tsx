@@ -14,7 +14,7 @@ import { useSession } from "next-auth/react";
 
 const CartContainer = () => {
   const [totalAmt, setTotalAmt] = useState(0);
-  const { cart } = useSelector((state: StoreState) => state?.shoppers);
+  const { cart } = useSelector((state: StoreState) => state?.khanaura);
   const dispatch = useDispatch();
   const { data: session } = useSession();
   const handleReset = () => {
@@ -146,7 +146,7 @@ const CartContainer = () => {
               Your Cart feels lonely.
             </h1>
             <p className="text-sm text-center px-10 -mt-2">
-                Your shopping cart is waiting! Fill it with Khan Aura's stunning nails, jewelry, hair clips, and accessories—because you deserve a touch of elegance and style! 💅✨🛍️
+                Your shopping cart is waiting! Fill it with Khan Aura&apos;s stunning nails, jewelry, hair clips, and accessories—because you deserve a touch of elegance and style! 💅✨🛍️
             </p>
             <Link
               href={"/"}

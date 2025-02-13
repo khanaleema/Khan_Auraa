@@ -6,7 +6,7 @@ import { RiShoppingCart2Fill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 
 const SideBarCartIcon = () => {
-  const { cart } = useSelector((state: StoreState) => state?.shoppers);
+  const { cart } = useSelector((state: StoreState) => state?.khanaura);
   return (
     <Link
       href={"/cart"}
