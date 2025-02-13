@@ -1,3 +1,6 @@
+// ✅ Ensure this runs on the server
+"use server";
+
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
