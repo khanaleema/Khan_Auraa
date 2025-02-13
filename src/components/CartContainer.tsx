@@ -5,12 +5,13 @@ import emptyCart from "@/assets/emptyCart.png";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreState } from "../../types";
 import toast from "react-hot-toast";
-import { resetCart } from "@/redux/shoppersSlice";
+import { resetCart } from "@/redux/khanaura";
 import FormattedPrice from "./FormattedPrice";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import CartItem from "./CartItem";
 import { useSession } from "next-auth/react";
+
 
 const CartContainer = () => {
   const [totalAmt, setTotalAmt] = useState(0);

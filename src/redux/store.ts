@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import shoppersSlice from "./shoppersSlice";
+import khanAuraReducer from "./khanaura"; 
+
 import {
   persistStore,
   persistReducer,
@@ -9,45 +10,19 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-  WebStorage,
 } from "redux-persist";
-import createWebStorage from "redux-persist/es/storage/createWebStorage";
-
-export function createPersistStore(): WebStorage {
-  const isServer = typeof window === "undefined";
-
-  // will returns our dummy server
-  if (isServer) {
-    return {
-      getItem() {
-        return Promise.resolve(null);
-      },
-      setItem() {
-        return Promise.resolve();
-      },
-      removeItem() {
-        return Promise.resolve();
-      },
-    };
-  }
-  return createWebStorage("local");
-}
-
-const storage =
-  typeof window !== "undefined"
-    ? createWebStorage("local")
-    : createPersistStore();
+import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
   key: "root",
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, shoppersSlice);
+const persistedReducer = persistReducer(persistConfig, khanAuraReducer);
 
 export const store = configureStore({
   reducer: {
-    shoppers: persistedReducer,
+    khanaura: persistedReducer, // ✅ Correct reducer name
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -58,3 +33,6 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+
+export type StoreState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

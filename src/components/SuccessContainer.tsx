@@ -1,5 +1,5 @@
 "use client";
-import { resetCart } from "@/redux/shoppersSlice";
+import { resetCart } from "@/redux/khanaura";
 import { StoreState } from "@/types";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState, useCallback } from "react";

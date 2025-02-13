@@ -10,7 +10,7 @@ import {
   decreaseQuantity,
   increaseQuantity,
   removeFromCart,
-} from "@/redux/shoppersSlice";
+} from "@/redux/khanaura";
 import { urlFor } from "@/sanity/lib/image";
 import FormattedPrice from "./FormattedPrice";
 import { FaMinus, FaPlus } from "react-icons/fa6";

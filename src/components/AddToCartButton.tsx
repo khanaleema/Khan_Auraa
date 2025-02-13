@@ -5,7 +5,7 @@ import SmallLoader from "./SmallLoader";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { addToCart } from "@/redux/shoppersSlice";
+import { addToCart } from "@/redux/khanaura";
 import { ProductData } from "../../types";
 
 interface Props {

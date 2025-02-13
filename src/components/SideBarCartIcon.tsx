@@ -6,7 +6,8 @@ import { RiShoppingCart2Fill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 
 const SideBarCartIcon = () => {
-  const { cart } = useSelector((state: StoreState) => state?.khanaura);
+  const cart = useSelector((state: StoreState) => state.khanaura?.cart || []);
+
   return (
     <Link
       href={"/cart"}
@@ -18,7 +19,7 @@ const SideBarCartIcon = () => {
       </div>
       <p className="text-xs font-semibold">Buy Now</p>
       <p className="absolute top-1 right-2 bg-darkOrange text-white text-xs w-4 h-4 rounded-full flex items-center justify-center font-semibold">
-        {cart ? cart?.length : 0}
+        {cart.length}
       </p>
     </Link>
   );
