@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { HiMenuAlt2 } from "react-icons/hi";
 import SearchInput from "./SearchInput";
@@ -32,17 +31,27 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="w-full h-20 bg-white border-b-[1px] border-lightText/20 sticky top-0 z-50">
+    <header className="w-full h-20 bg-white border-b border-lightText/20 sticky top-0 z-50">
       <div className="h-full max-w-screen-xl mx-auto px-4 flex items-center justify-between gap-5 lg:gap-10">
-        {/* ✅ Logo */}
-        <Logo />
-        {/* ✅ Search Input */}
-        <SearchInput />
 
-        {/* 🔹 Mobile Overlay (Click to Close) */}
+        {/* ✅ Mobile Menu Icon (Toggle Button) */}
+        <HiMenuAlt2
+          className="md:hidden cursor-pointer w-8 h-6 z-50"
+          onClick={() => setMenuOpen(!menuOpen)}
+        />
+
+        {/* ✅ Logo (Always Visible) */}
+        <Logo />
+
+        {/* ✅ Search Input (Hidden on Small Screens) */}
+        <div className="hidden md:block flex-1">
+          <SearchInput />
+        </div>
+
+        {/* ✅ Mobile Overlay (Click to Close) */}
         {menuOpen && (
           <div
-            className="fixed top-0 left-0 w-full h-full bg-black/40 backdrop-blur-sm z-40 md:hidden transition-opacity duration-300"
+            className="fixed top-0 left-0 w-full h-full bg-black/40 backdrop-blur-sm z-40 md:hidden"
             onClick={() => setMenuOpen(false)}
           ></div>
         )}
@@ -113,12 +122,11 @@ const Header = () => {
             )}
           </div>
         </div>
+      </div>
 
-        {/* ✅ Mobile Menu Icon */}
-        <HiMenuAlt2
-          className="inline-flex md:hidden cursor-pointer w-8 h-6"
-          onClick={() => setMenuOpen(!menuOpen)}
-        />
+      {/* ✅ Mobile Search Bar (Only Visible on Small Screens) */}
+      <div className="block md:hidden px-4 mt-2">
+        <SearchInput />
       </div>
     </header>
   );
