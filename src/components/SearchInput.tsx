@@ -36,7 +36,7 @@ const SearchInput = () => {
   }, [search]);
 
   return (
-    <div className="relative w-full flex flex-1 h-12 text-base items-center gap-2 md:w-[300px] lg:w-[400px]">
+    <div className="relative w-full flex flex-1 h-12 text-base items-center gap-2 max-w-[600px]">
       {/* Search Icon */}
       <CiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-lg text-lightOrange" />
 
@@ -44,7 +44,7 @@ const SearchInput = () => {
       <input
         type="text"
         placeholder="Search products..."
-        className="flex-1 h-full outline-none bg-transparent placeholder:text-lightText border border-accent/30 rounded-sm pl-10 pr-24 md:pr-28"
+        className="flex-1 h-full outline-none bg-transparent placeholder:text-lightText border border-accent/30 rounded-sm pl-14 pr-36"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
@@ -52,13 +52,13 @@ const SearchInput = () => {
       {/* Close Icon */}
       {search && (
         <IoMdClose
-          className="absolute right-20 md:right-24 top-1/2 transform -translate-y-1/2 text-lightRed cursor-pointer"
+          className="absolute right-24 top-1/2 transform -translate-y-1/2 text-lightRed cursor-pointer"
           onClick={() => setSearch("")}
         />
       )}
 
       {/* Search Button */}
-      <button className="bg-lightOrange text-white px-3.5 py-1.5 text-sm hover:bg-darkOrange font-medium absolute right-2 md:right-3">
+      <button className="bg-lightOrange text-white px-4 py-1.5 text-sm hover:bg-darkOrange font-medium absolute right-2">
         Search
       </button>
 
